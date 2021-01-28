@@ -28,15 +28,51 @@ Intro에서 짧게 언급했듯이 쿠키는 저장와 유지의 역할을 한�
 
 따라서, 유저가 사이트를 떠나기 전까지 해당 유저의 로그인 정보를 보관할 저장소가 필요하다. => 이게 바로 쿠키!
 
-## 예제 코드: Cookie를 통해 로그인 유지하기
-// 편의상 html, head, body 태그 등 기본 태그는 생략한다.
-1. 로그인 페이지 (loginform.jsp)
+## Cookie 관련 주요 메소드  
+- setMaxage(int) => 쿠키의 유효 기간을 설정한다.
+- getValue() => 쿠키에 설정된 값을 가져온다.
+
+
+## 예제 코드: Cookie를 통해 로그인 유지하기  
+편의상 html, head, body 태그 등 기본 태그는 생략합니다.  
+
+1. 로그인 페이지 (loginForm.jsp)
+
 ```
   <form action="loginOK.jsp" method="post"> //사실 servlet이어야 하지만 편의상 jsp 파일로 한다.
   
   아이디 :   <input type="text" name="id"> </br>
   비밀번호 : <input type="password" name="pw"> </br>
-            <input type="submit" value="로그인"> </br>
-            
+            <input type="submit" value="로그인"> </br>            
   </form>
 ```
+
+2. 로그인 처리 페이지 (loginOK.jsp)
+```
+  String id = request.getParameter("id");
+  String pw = request.getParameter("pw");
+  
+  if(id.equals("홍길동") && pw.equals("1234")){ //원래는 DB에 저장되어 있는 id/pw값과 비교해야 하나, 편의상 생략
+    Cookie[] cookie = new Cookie("id", id); // id란 이름을 가지고, 회원의 id 정보(홍길동)를 저장한 cookie 객체 생성.
+    cookie.setMaxage(60); //쿠키의 유효시간 : 60초
+    response.addCookie(cookie); // cookie 객체를 response에 추가 (이게 없으면 홍길동의 로그인 정보는 삭제된다)
+    response.sendRedirect("welcome.jsp"); // 로그인 성공시 유저를 welcome.jsp 페이지로 보낸다.
+  }else{
+    response.sendRedirect("loginForm.jsp"); // 로그인 실패시 다시 로그인하게 한다.
+  }
+```
+
+3. Welcome 페이지 (welcome.jsp)
+```
+  Cookie[] cookies = request.getCookies();
+  for(int i=0; i < cookies.length(); i++){
+    String id = cookies[i].getValue();
+    
+    if(id.equals("홍길동")){ // Cookie가 홍길동이라는 로그인 정보를 저장하고 있어서 환영 메세지를 받을 수 있다.
+    out.println(id + "님 환영합니다");
+    }else{
+    response.sendRedirect("loginForm.jsp");
+  }
+```
+
+결론적으로, Cookie가 홍길동 user의 로그인 정보를 저장하고 있기 때문에 설정한 60초간 홍길동은 사이트에서 별도의 재로그인이 필요 없이 컨텐츠를 이용할 수 있다.
