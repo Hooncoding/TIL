@@ -31,7 +31,7 @@ Intro에서 짧게 언급했듯이 쿠키는 저장와 유지의 역할을 한�
 ## 예제 코드: Cookie를 통해 로그인 유지하기
 // 편의상 html, head, body 태그 등 기본 태그는 생략한다.
 1. 로그인 페이지 (loginform.jsp)
-
+```
   <form action="loginOK.jsp" method="post"> //사실 servlet이어야 하지만 편의상 jsp 파일로 한다.
   
   아이디 :   <input type="text" name="id"> </br>
@@ -39,3 +39,4 @@ Intro에서 짧게 언급했듯이 쿠키는 저장와 유지의 역할을 한�
             <input type="submit" value="로그인"> </br>
             
   </form>
+```
