@@ -1,0 +1,58 @@
+Java Bean
+==========
+
+What is Java Bean?
+--------------------
+Java에 DTO, VO가 있다면 JSP에는 Java bean이 있다.
+즉, Java bean은 JSP에서 데이터를 저장하는 객체이다.
+정확한 정의로는: Java 언어의 변수와 이 변수를 Get, Set할 수 있는 메소드를 가지고 있는 클래스다.
+
+Java Bean 생성 방법
+-----------------
+
+JSP 파일에서 다음 코드를 입력하면 JB가 생성된다.
+```
+<jsp:useBean id="student" class="school.classA.Student" scope="page"/>
+```
+
+이 때, school.classA 패키지 내 Student 클래스 파일이 있어야 한다. (해당 클래스 내에는 변수와 get/set 메소드가 있어야한다.)  
+스코프 범위란 이 Java bean이 사용될 범위를 의미한다.  
+  - page
+    - 현재 페이지 내에서만 사용가능
+  - request
+    - 다음 페이지까지 사용 가능
+  - session
+    - 세션이 끝날 때 까지 사용 가능
+    
+위 코드는 java에서 다음의 코드와 의미가 같다.  
+```
+Student student = new Student();
+```
+
+Java bean 활용하기
+------------------
+**Java bean 활용하여 변수 세팅하기**
+```
+<jsp:setProperty name="student" property="name" value="홍길동"/>
+```
+위 코드의 결과: Student 객체인 student 내 name 변수에 홍길동 저장
+
+**Java bean 활용하여 변수 출력하기**
+```
+<jsp:getProperty name="student" property="name"/>
+```
+위 코드의 결과: 홍길동 출력
+
+
+Java Bean의 한계점
+-----------------
+결론적으로 Java bean은 잘 안쓰인다.  
+  
+  이유1: getProperty는 EL이 훨씬 간단하므로 대체된다 (${student.name})
+  이유2: setProperty는 JSP 코드가 변수를 세팅하는 역할을 하는 것은 바람직하지 않다 (JSP 파일은 MVC 모델에서 View를 담당한다.)
+
+따라서, get/set Property를 사용할 필요가 없기 때문에 Java bean 역시 use 할 필요가 없다.
+이런 객체도 있구나 하고 넘길 것.
+
+
+
