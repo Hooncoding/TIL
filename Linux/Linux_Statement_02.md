@@ -137,4 +137,4 @@ yum -y install mysql-connector-odbc
 ```
 yum -y remove mysql-connector-odbc
 ```
-mysql 드라이버가 삭제되었다.
+실행 결과 mysql 드라이버가 삭제되었다.
