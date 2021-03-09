@@ -121,3 +121,37 @@ if __name__ == __main__:
 mod1.py를 직접 실행하면 mod1.py 모듈의 __name__ 변수에 '__main__'라는 문자열이 들어간다.  
 허나 mod1을 import한 파일에서 import mod1 코드 실행 시 __name__에는 'mod1' 문자열이 들어간다.  
 결과적으로 조건문에 의해 test code는 실행되지 않는다.  
+
+변수, 클래스, 메소드 모두 포함한 모듈 import 하기
+---
+```python
+#mod2.py
+
+PI = 3.141592 # 변수
+
+class Math:
+  def solv(self,r):
+    return PI * (r**2)
+    
+def sum(a,b):
+  return a + b
+  
+#modtest.py
+
+import mod2
+mod2.PI
+result = mod2.sum(3,4)
+a = mod2.Math()
+a.solv(2)
+3.141592
+7
+12.566368
+```
+다른 디렉토리내 존재하는 모듈 import 하기
+---
+```python
+#modtest.py
+>>> import sys
+>>> sys.path.append('C:/big12/python-project/mymodule')
+>>> import mod2
+```
