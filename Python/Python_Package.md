@@ -40,7 +40,7 @@ import game
 에러!!!
 
 #컴퓨터 입장에서 game.py이라는 단일 파일 임포트 한 것으로 인식 game.py 모듈 내 sound라는 속성 없음
-#결론 import 단의 끝은 결국 모듈이어야 함.
+#결론 import 단의 끝은 결국 모듈이어야 함
 
 #sound 패키지 내 모든 파일 import하기
 from game.sound import *
